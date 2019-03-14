@@ -1,3 +1,13 @@
+{-
+En aquest problema heu d’implementar una sèrie de funcions en Haskell. No cal que pregunteu si podeu fer servir funcions auxiliars, és evident que sí.
+
+Feu una funció absValue :: Int -> Int que, donat un enter, retorni el seu valor absolut.
+Feu una funció power :: Int -> Int -> Int que, donats un enter x i un natural p, retorni x elevat a p, és a dir, xp.
+Feu una funció isPrime :: Int -> Bool que, donat un natural, indiqui si aquest és primer o no.
+Feu una funció slowFib :: Int -> Int que retorni l’n-èsim element de la sèrie de Fibonacci tot utilitzant l’algorisme recursiu que la defineix (f(0)=0, f(1)=1, f(n)=f(n−1)+f(n−2) per n≥ 2).
+Feu una funció quickFib :: Int -> Int que retorni l’n-èsim element de la sèrie de Fibonacci tot utilitzant un algorisme més eficient.
+-}
+
 absValue :: Int -> Int
 
 absValue n
@@ -11,16 +21,17 @@ power x p   = x * power x (p - 1)
 
 isPrime :: Int -> Bool
 
-isPrime n = not (teAlgunDivisor n 2)
+isPrime 1   = False
+isPrime n   = not (teAlgunDivisor n 2)
 
 teAlgunDivisor :: Int -> Int -> Bool
 -- teAlgunDivisor n j indica si n té algun divisor
 -- entre j i n-1
 
 teAlgunDivisor n j
-    | j == n        = False
-    | mod n j == 0  = True
-    | otherwise     = teAlgunDivisor n (j + 1)
+    | j == n            = False
+    | mod n j == 0      = True
+    | otherwise         = teAlgunDivisor n (j + 1)
 
 slowFib :: Int -> Int
 
