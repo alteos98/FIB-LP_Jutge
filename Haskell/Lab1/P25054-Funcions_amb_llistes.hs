@@ -71,17 +71,25 @@ oddsNevens (x:xs)
 
 primeDivisors :: Int -> [Int]
 
-primeDivisors 1 = [1]
 primeDivisors n = primeDivisors' n 2
 
-primeDivisors' 1 _ = []
+primeDivisors' :: Int -> Int -> [Int]
+
 primeDivisors' n i
-    | n == i    = [n]
-    | mod n i == 0  = i : primeDivisors' (treureDiv n i) i
-    | otherwise = primeDivisors' n (i + 1)
+    | n + 1 == i                    = []
+    | mod n i == 0 && isPrime i     = i : primeDivisors' n (i + 1)
+    | otherwise                     = primeDivisors' n (i + 1)
 
-treureDiv :: Int -> Int -> Int
+isPrime :: Int -> Bool
 
-treureDiv n d
-        | mod n d == 0 = treureDiv (div n d) d
-        | otherwise = n
+isPrime 1   = False
+isPrime n   = not (teAlgunDivisor n 2)
+
+teAlgunDivisor :: Int -> Int -> Bool
+-- teAlgunDivisor n j indica si n té algun divisor
+-- entre j i n-1
+
+teAlgunDivisor n j
+    | j == n            = False
+    | mod n j == 0      = True
+    | otherwise         = teAlgunDivisor n (j + 1)
