@@ -13,14 +13,17 @@ myMap :: (a -> b) -> [a] -> [b]
 myMap _ []         = []
 myMap f (x:xs)     = f x : myMap f xs
 -}
-myMap f xs      = [f xs]
+myMap f l      = [f x | x <- l]
 
 myFilter :: (a -> Bool) -> [a] -> [a]
-
+{-
 myFilter _ []       = []
 myFilter f (x:xs)
     | f x       = x : myFilter f xs
     | otherwise = myFilter f xs
-{-
-myZipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 -}
+myFilter f l    = [x | x <- l, f x]
+
+myZipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+
+myZipWith f l1 l2   = [f x y | (x, y) <- zip l1 l2]
