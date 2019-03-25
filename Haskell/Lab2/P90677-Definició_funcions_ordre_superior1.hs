@@ -28,13 +28,16 @@ myFoldr f x l  = myFoldr f (flip f x (last l)) (init l)
 myIterate :: (a -> a) -> a -> [a]
 myIterate f x   = x : myIterate f (f x)
 
-{-
 myUntil :: (a -> Bool) -> (a -> a) -> a -> a
+myUntil fBool f i
+    | fBool i == True   = i
+    | otherwise         = myUntil fBool f (f i)
 
 myMap :: (a -> b) -> [a] -> [b]
+myMap f l1  = [f l2 | l2 <- l1]
 
 myFilter :: (a -> Bool) -> [a] -> [a]
--}
+myFilter f l1   = [l2 | l2 <- l1, f l2]
 
 myAll :: (a -> Bool) -> [a] -> Bool
 myAll f l   = and $ map f l
