@@ -38,9 +38,24 @@ countIf f (x:xs)
 pam :: [Int] -> [Int -> Int] -> [[Int]]
 pam l f     = [map fl l | fl <- f]
 
+{-
 pam2 :: [Int] -> [Int -> Int] -> [[Int]]
 pam2 l f    = [map fl l | fl <- f]
+-}
 
 filterFoldl :: (Int -> Bool) -> (Int -> Int -> Int) -> Int -> [Int] -> Int
 filterFoldl f1 f2 x xs  = foldl f2 x (filter f1 xs)
-    
+
+insert :: (Int -> Int -> Bool) -> [Int] -> Int -> [Int]
+insert _ [] x       = [x]
+insert f (l:ls) x
+    | f x l         = x : l : ls
+    | otherwise     = l : insert f ls x
+
+insertionSort :: (Int -> Int -> Bool) -> [Int] -> [Int]
+insertionSort f y               = insertionSort' f [] y
+
+-- funció, llista ordenada amb el que portem, llista amb el que queda per inserir
+insertionSort' :: (Int -> Int -> Bool) -> [Int] -> [Int] -> [Int]
+insertionSort' _ x []           = x
+insertionSort' f x (y:ys)       = insertionSort' f (insert f x y) ys
