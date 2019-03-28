@@ -30,17 +30,27 @@ que ordeni la llista per inserció segons la relació donada.
 -}
 
 countIf :: (Int -> Bool) -> [Int] -> Int
+countIf f l     = length (filter function (map f l))
+    where
+        function x  = x
+{-
+RECURSIU
 countIf _ []    = 0
 countIf f (x:xs)
     | f x       = 1 + countIf f xs
     | otherwise = countIf f xs
+-}
 
 pam :: [Int] -> [Int -> Int] -> [[Int]]
 pam l f     = [map fl l | fl <- f]
 
-{-
 pam2 :: [Int] -> [Int -> Int] -> [[Int]]
-pam2 l f    = [map fl l | fl <- f]
+pam2 xs fs      = [[f x | f <- fs] | x <- xs] 
+
+{-
+pam2 l f    = map function l
+        where
+            function x  = map ($x) f
 -}
 
 filterFoldl :: (Int -> Bool) -> (Int -> Int -> Int) -> Int -> [Int] -> Int

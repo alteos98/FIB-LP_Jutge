@@ -41,3 +41,12 @@ Heu de definir les funcions següents:
 En aquest problema no podeu utilitzar enumeracions infinites com ara [1..], però és
 recomanable utilitzar funcions d’ordre superior com ara map, scanl, iterate, filter, ...
 -}
+
+ones :: [Integer]
+ones      = 1 : ones
+
+nats :: [Integer]
+nats      = 0 : map (+1) nats
+
+fibs :: [Integer]
+fibs      = 0 : 1 : zipWith (+) fibs (tail fibs)

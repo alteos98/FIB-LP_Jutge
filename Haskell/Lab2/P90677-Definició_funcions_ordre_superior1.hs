@@ -23,7 +23,16 @@ myFoldl f x (l:ls)    = myFoldl f (f x l) ls
 
 myFoldr :: (a -> b -> b) -> b -> [a] -> b
 myFoldr _ x []      = x
-myFoldr f x l  = myFoldr f (flip f x (last l)) (init l)
+myFoldr f x (l:ls)  = f l (myFoldr f x ls)
+
+{-
+myFoldr :: (a -> b -> b) -> b -> [a] -> b
+myFoldr f x l   = myFoldr' f x (reverse l)
+
+myFoldr' :: (a -> b -> b) -> b -> [a] -> b
+myFoldr' _ x []      = x
+myFoldr' f x (l:ls)  = myFoldr f (f l x) ls
+-}
 
 myIterate :: (a -> a) -> a -> [a]
 myIterate f x   = x : myIterate f (f x)
