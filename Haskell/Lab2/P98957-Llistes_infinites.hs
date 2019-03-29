@@ -48,5 +48,14 @@ ones      = 1 : ones
 nats :: [Integer]
 nats      = 0 : map (+1) nats
 
+ints :: [Integer]
+ints      = scanl (+) 0 (zipWith (*) (iterate (+1) 1) (iterate (*(-1)) 1))
+
+triangulars :: [Integer]
+triangulars    = scanl (+) 0 (tail nats)
+
+factorials :: [Integer]
+factorials     = scanl (*) 1 (tail nats)
+
 fibs :: [Integer]
 fibs      = 0 : 1 : zipWith (+) fibs (tail fibs)
