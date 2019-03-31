@@ -59,3 +59,9 @@ factorials     = scanl (*) 1 (tail nats)
 
 fibs :: [Integer]
 fibs      = 0 : 1 : zipWith (+) fibs (tail fibs)
+
+tartaglia :: [[Integer]]
+tartaglia = iterate tartaglia' [1]
+
+tartaglia' :: [Integer] -> [Integer]
+tartaglia' l   = zipWith (+) (l ++ [0]) ([0] ++ l)
