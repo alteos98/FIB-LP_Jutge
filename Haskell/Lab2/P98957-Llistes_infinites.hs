@@ -60,6 +60,14 @@ factorials     = scanl (*) 1 (tail nats)
 fibs :: [Integer]
 fibs      = 0 : 1 : zipWith (+) fibs (tail fibs)
 
+primes :: [Integer]
+primes    = garbell [2..]
+
+garbell :: [Integer] -> [Integer]
+garbell (x:xs)      = x : garbell (filter (not multiple) xs)
+     where
+          multiple y     = mod y x == 0
+
 tartaglia :: [[Integer]]
 tartaglia = iterate tartaglia' [1]
 
