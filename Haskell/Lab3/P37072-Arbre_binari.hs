@@ -20,3 +20,43 @@ Feu una funció overlap :: (a -> a -> a) -> Tree a -> Tree a -> Tree a que, dona
     utilitzant una funció. Superposar dos arbres amb una funció consisteix en posar els dos arbres l’un damunt de l’altre
     i combinar els nodes doble resultants amb la funció donada o deixant els nodes simples tal qual.
 -}
+
+data Tree a = Node a (Tree a) (Tree a) | Empty deriving (Show)
+
+size :: Tree a -> Int
+size Empty = 0
+size (Node _ fe fd) = 1 + size fe + size fd
+
+height :: Tree a -> Int
+height Empty = 0
+height (Node _ fe fd) = 1 + max (height fe) (height fd)
+
+equal :: Eq a => Tree a -> Tree a -> Bool
+equal Empty Empty = True
+equal Empty _ = False
+equal _ Empty = False
+equal (Node p1 fe1 fd1) (Node p2 fe2 fd2) = p1 == p2 && equal fe1 fe2 && equal fd1 fd2
+
+preOrder :: Tree a -> [a]
+preOrder Empty = []
+preOrder (Node p fe fd) = p : preOrder fe ++ preOrder fd
+
+postOrder :: Tree a -> [a]
+postOrder Empty = []
+postOrder (Node p fe fd) = postOrder fe ++ postOrder fd ++ [p]
+
+inOrder :: Tree a -> [a]
+inOrder Empty = []
+inOrder (Node p fe fd) = inOrder fe ++ [p] ++ inOrder fd
+
+{-
+isomorphic :: Eq a => Tree a -> Tree a -> Bool
+
+breadthFirst :: Tree a -> [a]
+breadthFirst Empty = []
+breadthFirst (Node p fe fd) =
+
+build :: Eq a => [a] -> [a] -> Tree a
+
+overlap :: (a -> a -> a) -> Tree a -> Tree a -> Tree a
+-}
