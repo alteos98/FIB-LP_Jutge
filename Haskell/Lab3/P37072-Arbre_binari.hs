@@ -37,6 +37,12 @@ equal Empty _ = False
 equal _ Empty = False
 equal (Node p1 fe1 fd1) (Node p2 fe2 fd2) = p1 == p2 && equal fe1 fe2 && equal fd1 fd2
 
+isomorphic :: Eq a => Tree a -> Tree a -> Bool
+isomorphic Empty Empty = True
+isomorphic Empty _ = False
+isomorphic _ Empty = False
+isomorphic (Node p1 fe1 fd1) (Node p2 fe2 fd2) = p1 == p2 && ((isomorphic fe1 fe2 && isomorphic fd1 fd2) || (isomorphic fe1 fd2 && isomorphic fd1 fe2))
+
 preOrder :: Tree a -> [a]
 preOrder Empty = []
 preOrder (Node p fe fd) = p : preOrder fe ++ preOrder fd
@@ -50,8 +56,6 @@ inOrder Empty = []
 inOrder (Node p fe fd) = inOrder fe ++ [p] ++ inOrder fd
 
 {-
-isomorphic :: Eq a => Tree a -> Tree a -> Bool
-
 breadthFirst :: Tree a -> [a]
 breadthFirst Empty = []
 breadthFirst (Node p fe fd) =
