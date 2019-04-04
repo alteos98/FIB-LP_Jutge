@@ -68,9 +68,19 @@ garbell (x:xs)      = x : garbell (filter (not multiple) xs)
      where
           multiple y     = mod y x == 0
 
-{-
 hammings :: [Integer]
+hammings = 1 : (merge (map (*2) hammings) (merge (map (*3) hammings) (map (*5) hammings)))
 
+merge :: [Integer] -> [Integer] -> [Integer]
+merge [] []         = []
+merge (x:xs) []     = x : xs
+merge [] (y:ys)     = y : ys
+merge (x:xs) (y:ys)
+    | x == y        = x : merge xs ys
+    | x < y         = x : merge xs (y:ys)
+    | otherwise     = y : merge (x:xs) ys
+
+{-
 lookNsay :: [Integer]
 -}
 
