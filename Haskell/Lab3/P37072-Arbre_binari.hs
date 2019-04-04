@@ -55,12 +55,25 @@ inOrder :: Tree a -> [a]
 inOrder Empty = []
 inOrder (Node p fe fd) = inOrder fe ++ [p] ++ inOrder fd
 
-{-
 breadthFirst :: Tree a -> [a]
-breadthFirst Empty = []
-breadthFirst (Node p fe fd) =
+breadthFirst tree = breadthFirst' [tree]
+
+breadthFirst' :: [Tree a] -> [a]
+breadthFirst' [] = []
+breadthFirst' ((Empty):xs) = breadthFirst' xs
+breadthFirst' ((Node p fe fd) : xs) = p : (breadthFirst' (xs ++ [fe, fd]))
 
 build :: Eq a => [a] -> [a] -> Tree a
+build [] [] = Empty
+build (p:preorder) inorder = Node p (build leftPreorder leftInorder) (build rightPreorder rightInorder)
+    where
+        leftInorder = takeWhile (/= p) inorder
+        rightInorder = tail (dropWhile (/= p) inorder)
+        leftPreorder = take (length leftInorder) preorder
+        rightPreorder = drop (length leftInorder) preorder
 
 overlap :: (a -> a -> a) -> Tree a -> Tree a -> Tree a
--}
+overlap _ Empty Empty = Empty
+overlap _ Empty t = t
+overlap _ t Empty = t
+overlap f (Node p1 fe1 fd1) (Node p2 fe2 fd2) = (Node (f p1 p2) (overlap f fe1 fe2) (overlap f fd1 fd2))
