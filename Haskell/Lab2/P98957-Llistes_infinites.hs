@@ -68,6 +68,12 @@ garbell (x:xs)      = x : garbell (filter (not multiple) xs)
      where
           multiple y     = mod y x == 0
 
+{-
+hammings :: [Integer]
+
+lookNsay :: [Integer]
+-}
+
 tartaglia :: [[Integer]]
 tartaglia = iterate tartaglia' [1]
 
