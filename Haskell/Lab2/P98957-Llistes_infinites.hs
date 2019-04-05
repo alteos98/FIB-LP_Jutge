@@ -61,12 +61,12 @@ fibs :: [Integer]
 fibs      = 0 : 1 : zipWith (+) fibs (tail fibs)
 
 primes :: [Integer]
-primes    = garbell [2..]
+primes    = garbell (iterate (+1) 2)
 
 garbell :: [Integer] -> [Integer]
-garbell (x:xs)      = x : garbell (filter (not multiple) xs)
+garbell (x:xs)      = x : garbell (filter notmultiple xs)
      where
-          multiple y     = mod y x == 0
+          notmultiple y     = mod y x /= 0
 
 hammings :: [Integer]
 hammings = 1 : (merge (map (*2) hammings) (merge (map (*3) hammings) (map (*5) hammings)))
@@ -80,9 +80,21 @@ merge (x:xs) (y:ys)
     | x < y         = x : merge xs (y:ys)
     | otherwise     = y : merge (x:xs) ys
 
-{-
+-- Anem construint la seqüencia a partir de l'anterior per l'iterate
 lookNsay :: [Integer]
--}
+lookNsay = iterate lookNsay' 1
+
+lookNsay' :: Integer -> Integer
+lookNsay' n = read (lookNsay'' (show n))
+
+-- show: passa a String
+lookNsay'' :: [Char] -> [Char]
+lookNsay'' [] = []
+lookNsay'' (x:xs) = count ++ [number] ++ next
+          where
+               count = show ((length (takeWhile (== x) xs)) + 1)
+               number = x
+               next = lookNsay'' (dropWhile (== x) xs)
 
 tartaglia :: [[Integer]]
 tartaglia = iterate tartaglia' [1]
