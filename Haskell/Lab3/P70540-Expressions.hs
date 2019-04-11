@@ -31,3 +31,16 @@ eval1 (Add x y) = (eval1 x) + (eval1 y)
 eval1 (Sub x y) = (eval1 x) - (eval1 y)
 eval1 (Mul x y) = (eval1 x) * (eval1 y)
 eval1 (Div x y) = div (eval1 x) (eval1 y)
+
+eval2 :: Expr -> Maybe Int
+eval2 (Val x) = Just x
+eval2 (Add x y) = eval2' (+) x y
+eval2 (Sub x y) = eval2' (-) x y
+eval2 (Mul x y) = eval2' (*) x y
+eval2 (Div x y) = eval2' (div) x y
+
+eval2' :: (Int -> Int -> Int) -> Expr -> Expr -> Maybe Int
+eval2' f x y = do
+    x' <- eval2 x
+    y' <- eval2 y
+    Just (f x' y')
