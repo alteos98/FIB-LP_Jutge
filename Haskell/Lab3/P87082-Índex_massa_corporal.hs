@@ -32,3 +32,34 @@ Observació
 
 Per resoldre aquest problema en Haskell, feu una funció main i escolliu el compilador GHC.
 -}
+
+getName :: String -> String
+getName s = takeWhile (/= ' ') s
+
+calculateIMC :: String -> String
+calculateIMC s = do
+    let weight = read $ takeWhile (/= ' ') (drop 1 (dropWhile (/= ' ') s)) :: Float
+    let height = read $ drop 1 (dropWhile (/= ' ') (drop 1 (dropWhile (/= ' ') s))) :: Float
+    let imc = calculateIMC' weight height
+    getIMCMessage imc
+
+calculateIMC' :: Float -> Float -> Float
+calculateIMC' w h = (/) w ((**) h 2)
+
+getIMCMessage :: Float -> String
+getIMCMessage imc
+    | imc < 18              = "magror"
+    | imc >= 18 && imc < 25 = "corpulencia normal"
+    | imc >= 25 && imc < 30 = "sobrepes"
+    | imc >= 30 && imc < 40 = "obesitat"
+    | imc >= 40             = "obesitat morbida"
+
+main = do
+    line <- getLine
+    if line /= "*" then do
+        let name = getName line
+        let imc = calculateIMC line
+        putStrLn (name ++ ": " ++ imc)
+        main
+    else
+        return()
