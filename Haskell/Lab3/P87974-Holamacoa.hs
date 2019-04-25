@@ -16,3 +16,14 @@ Observació
 Per resoldre aquest problema en Haskell, feu una funció main i escolliu
 el compilador GHC.
 -}
+
+main = do
+    nom <- getLine
+    let c = lastChar nom
+    if c /= 'a' && c /= 'A' then do
+        putStrLn "Hola maco!"
+    else
+        putStrLn "Hola maca!"
+
+lastChar :: String -> Char
+lastChar s = last s
