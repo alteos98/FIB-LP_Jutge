@@ -47,4 +47,4 @@ instance Eq a => Eq (Queue a)
 instance Functor (Queue) where
     fmap f [] [] = [] []
     fmap f (Queue (x:xs) yss) = Queue (f x : fmap xs) (yss)
-    fmap f (Queue xss )
+    fmap f (Queue _ (y:ys)) = Queue 
