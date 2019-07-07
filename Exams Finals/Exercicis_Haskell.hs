@@ -15,3 +15,9 @@ fun5 g (x,y) = (g x, g y)
 
 -- 16-17Q1 - Ex 4.1
 fun6 x (y:l) = let s = sum l in if s < x then fun6 x l else y:l
+
+-- 15-16Q2 - Ex 4.1
+fun7 f x = x:(fun7 f (f x))
+
+-- 15-16Q2 - Ex 4.2
+fun8 f g (x,y) = let (n,m) = (f x, g y) in if n > m then (n,y) else (m,y)
